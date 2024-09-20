@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <form action="{% url 'ecoApp:crearSeccion' %}" method="get">
+            <div>
+                <label for="nivelSelect">Selecciona el nivel</label>
+                <select id="nivelSelect" name="nivelSeleccionado" onchange="this.form.submit()">
+                    <option value="" {% if not nivelSeleccionado %}selected{% endif %}>Seleccione un nivel</option>
+                    {% for nivelInfo in listaNivel %}
+                        <option value="{{ nivelInfo.id }}" {% if nivelSeleccionado == nivelInfo.id|stringformat:"s" %}selected{% endif %}>
+                            {{ nivelInfo.nombreNivel }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+
+        <form action="{% url 'ecoApp:crearSeccion' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="nivelSeleccionado" value="{{ nivelSeleccionado }}">
+            <div>
+                <label for="gradoSelect">Selecciona el grado</label>
+                <select id="gradoSelect" name="gradoSeleccionado" required>
+                    <option value="" selected>Seleccione un grado</option>
+                    {% for gradoInfo in listaGrado %}
+                    <option value="{{ gradoInfo.id }}">{{ gradoInfo.nombreGrado }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="nombreSeccion">Nombre de la sección</label>
+                <input type="text" id="nombreSeccion" name="nombreSeccion" required>
+            </div>
+            <div>
+                <input type="submit" value="Crear Sección">
+            </div>
+        </form>
+    </div>
+
+    <!--
+    <div>
+        <form action="{% url 'ecoApp:crearSeccion' %}" method="post">
+            {% csrf_token %}
+            <div>
+                <label for="">Selecciona el grado</label>
+                <select name="gradoSeleccionado" required>
+                    <option value="" selected></option>
+                    {% for gradoInfo in listaGrado %}
+                    <option value="{{ gradoInfo.id }}">{{ gradoInfo.nombreGrado }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for=""></label>
+                <input type="text" name="nombreSeccion">
+            </div>
+            <div>
+                <input type="submit">
+            </div>
+        </form>
+    </div>-->
+</body>
+
+</html>

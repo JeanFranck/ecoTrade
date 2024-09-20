@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+        <form action="{% url 'ecoApp:crearGrado' %}" method="post">
+        {% csrf_token %}
+            <div>
+                <label for="">Selecciona el Nivel</label>
+                <select name="nivelSeleccionado" required>
+                    <option value="" selected></option>
+                    {% for nivelInfo in listaNivel %}
+                    <option value="{{ nivelInfo.id }}">{{ nivelInfo.nombreNivel }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for=""></label>
+                <input type="text" name="nombreGrado">
+            </div>
+            <div>
+                <input type="submit">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
